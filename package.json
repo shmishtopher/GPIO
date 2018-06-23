@@ -1,0 +1,25 @@
+{
+  "name": "ar_gpio",
+  "version": "0.1.0",
+  "description": "GPIO Pin control in JS using the gpiochip character device.",
+  "main": "dist/ar_gpio.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shmishtopher/AR_GPIO.git"
+  },
+  "keywords": [
+    "anderson",
+    "robotics",
+    "gpio",
+    "pin"
+  ],
+  "author": "Shmish <shmish90@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shmishtopher/AR_GPIO/issues"
+  },
+  "homepage": "https://github.com/shmishtopher/AR_GPIO#readme"
+}

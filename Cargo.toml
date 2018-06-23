@@ -1,0 +1,8 @@
+[package]
+name = "AR_GPIO"
+version = "0.1.0"
+authors = ["Shmish <shmish90@gmail.com>"]
+
+[dependencies]
+nix = "*"
+libc = "*"
