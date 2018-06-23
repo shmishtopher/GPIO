@@ -3,6 +3,11 @@ name = "AR_GPIO"
 version = "0.1.0"
 authors = ["Shmish <shmish90@gmail.com>"]
 
+[lib]
+name = "ar_gpio"
+path = "src/ar_gpio.rs"
+crate-type = ["cdylib"]
+
 [dependencies]
 nix = "*"
 libc = "*"
