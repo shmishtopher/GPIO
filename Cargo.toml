@@ -11,3 +11,6 @@ crate-type = ["cdylib"]
 [dependencies]
 nix = "*"
 libc = "*"
+
+[target.arm-unknown-linux-gnueabihf]
+linker = "arm-linux-gnueabihf-gcc"
