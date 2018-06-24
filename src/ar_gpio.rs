@@ -117,6 +117,20 @@ impl GPIOChip {
     request.flags = u32;
     request.default_values[0] = default;
     request.lines = 1;
+
+    for i in 0..request.consumer_label.len() {
+      if i >= consumer.len() { break; }
+      request.consumer_label[i] = consumer.as_bytes()[i] as std::os::raw::c_char;
+    }
+
+    get_linehandle(self.file.as_raw_fd(), &mut request);
+    
+    Ok(GpioHandle {
+      file: unsafe {std::fs::File::from_raw_fd(request.fd)},
+      consumer: consumer.to_string(),
+      flags: flags,
+      gpio: gpio
+    })
   }
 }
 
