@@ -12,6 +12,7 @@ extern crate libc;
 
 use libc::c_char;
 use libc::uint32_t;
+use libc::uint8_t;
 use std::fs::File;
 use std::os::unix;
 
@@ -28,6 +29,21 @@ struct gpioline_info {
   flags: uint32_t,
   name: [c_char; 32],
   consumer: [c_char; 32]
+}
+
+#[repr(C)]
+struct gpiohandle_request {
+  lineoffsets: [uint32_t; 64],
+  flags: uint32_t,
+  default_values: [uint8_t; 64],
+  consumer_label: [c_char; 32],
+  lines: uint32_t,
+  fd: unix::io::RawFd,
+}
+
+#[repr(C)]
+struct gpiohandle_data {
+  values: [uint8_t; 64],
 }
 
 mod RequestFlags {
