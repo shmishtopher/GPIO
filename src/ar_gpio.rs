@@ -149,8 +149,14 @@ impl GPIOHandle {
   }
 }
 
-// #[no_mangle]
-// pub extern fn construct_gpiochip () -> *mut GPIOChip {}
+#[no_mangle]
+pub extern fn construct_gpiochip () -> *mut  GPIOChip {}
 
-// #[no_mangle]
-// pub extern fn destruct_gpiochip (*mut GPIOChip) {}
+#[no_mangle]
+pub extern fn destruct_gpiochip (*mut GPIOChip) {}
+
+#[no_mangle]
+pub extern fn construct_gpioline () -> *mut GPIOHandle {}
+
+#[no_mangle]
+pub extern fn destruct_gpioline (*mut GPIOHandle) {}
