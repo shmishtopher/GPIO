@@ -10,41 +10,41 @@
 extern crate nix;
 extern crate libc;
 
-use libc::c_char;
-use libc::uint32_t;
-use libc::uint8_t;
-use std::fs::File;
-use std::os::unix;
-
 #[repr(C)]
 struct gpiochip_info {
-  name: [c_char; 32],
-  label: [c_char; 32],
-  lines: uint32_t
+  name: [libc::c_char; 32],
+  label: [libc::c_char; 32],
+  lines: libc::uint32_t
 }
 
 #[repr(C)]
 struct gpioline_info {
-  line_offset: uint32_t,
-  flags: uint32_t,
-  name: [c_char; 32],
-  consumer: [c_char; 32]
+  line_offset: libc::uint32_t,
+  flags: libc::uint32_t,
+  name: [libc::c_char; 32],
+  consumer: [libc::c_char; 32]
 }
 
 #[repr(C)]
 struct gpiohandle_request {
-  lineoffsets: [uint32_t; 64],
-  flags: uint32_t,
-  default_values: [uint8_t; 64],
-  consumer_label: [c_char; 32],
-  lines: uint32_t,
-  fd: unix::io::RawFd,
+  lineoffsets: [libc::uint32_t; 64],
+  flags: libc::uint32_t,
+  default_values: [libc::uint8_t; 64],
+  consumer_label: [libc::c_char; 32],
+  lines: libc::uint32_t,
+  fd: libc::c_int,
 }
 
 #[repr(C)]
 struct gpiohandle_data {
-  values: [uint8_t; 64],
+  values: [libc::uint8_t; 64],
 }
+
+ioctl!(read get_chipinfo with 0xB4, 0x01; gpiochip_info);
+ioctl!(readwrite get_lineinfo with 0xB4, 0x02; gpioline_info);
+ioctl!(readwrite get_linehandle with 0xB4, 0x03; gpiohandle_request);
+ioctl!(readwrite get_line_values with 0xB4, 0x08; gpiohandle_data);
+ioctl!(readwrite set_line_values with 0xB4, 0x09; gpiohandle_data);
 
 mod RequestFlags {
   const INPUT: uint32_t =       0x01 << 0;
@@ -62,21 +62,15 @@ mod LineFlags {
   const OPEN_SOURCE: uint32_t = 0x01 << 4;
 }
 
-ioctl!(read get_chipinfo with 0xB4, 0x01; gpiochip_info);
-ioctl!(readwrite get_lineinfo with 0xB4, 0x02; gpioline_info);
-ioctl!(readwrite get_linehandle with 0xB4, 0x03; gpiohandle_request);
-ioctl!(readwrite get_line_values with 0xB4, 0x08; gpiohandle_data);
-ioctl!(readwrite set_line_values with 0xB4, 0x09; gpiohandle_data);
-
 struct GPIOChip {
-  file: File,
+  file: std::fs::File,
   name: String,
   label: String,
   lines: u32
 }
 
 struct GPIOHandle {
-  file: File,
+  file: std::fs::File,
   gpio: u32,
   consumer: String,
   flags: uint32_t
@@ -88,7 +82,15 @@ impl GPIOChip {
   }
 
   fn info (fd: unix::io::RawFd) -> std::io::Result(String, String, u32) {
+    let mut info = gpiochip_info {
+      name: [0; 32],
+      label: [0; 32],
+      lines: 0
+    };
 
+    get_chipinfo(fd, &mut info);
+
+    let name = 
   }
 
   fn request () {
