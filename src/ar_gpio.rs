@@ -63,7 +63,10 @@ mod LineFlags {
 }
 
 ioctl!(read get_chipinfo with 0xB4, 0x01; gpiochip_info);
-ioctl!(readwrite get_lineinfo with 0xB4, 0x01; gpioline_info);
+ioctl!(readwrite get_lineinfo with 0xB4, 0x02; gpioline_info);
+ioctl!(readwrite get_linehandle with 0xB4, 0x03; gpiohandle_request);
+ioctl!(readwrite get_line_values with 0xB4, 0x08; gpiohandle_data);
+ioctl!(readwrite set_line_values with 0xB4, 0x09; gpiohandle_data);
 
 struct GPIOChip {
   file: File,
