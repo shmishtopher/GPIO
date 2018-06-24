@@ -10,6 +10,11 @@
 extern crate nix;
 extern crate libc;
 
+use std::os::unix::io::RawFd;
+use std::os::unix::io::IntoRawFd;
+use std::os::unix::io::FromRawFd;
+use std::os::unix::io::AsRawFd;
+
 mod RequestFlags {
   const INPUT: u32 =       0x01 << 0;
   const OUTPUT: u32 =      0x01 << 1;
@@ -77,7 +82,42 @@ struct GPIOHandle {
 }
 
 impl GPIOChip {
+  fn new (path: &std::path::Path) -> std::io::Result<GPIOChip> {
+    let file = try!(std::fs::File::open(path));
+    let (name, label, lines) = try!(GpioChip::chipinfo(file.as_raw_fd()));
+    Ok(GpioChip {file: file, name: name, label: label, lines: lines})
+  }
 
+  fn info (fd: RawFd) -> std::io::Result<(String, String, u32)> {
+    let mut data = gpiochip_info { name: [0; 32], label: [0; 32], lines: 0 };
+    get_chipinfo(fd, &mut data);
+
+    let name = unsafe {std::ffi::CStr::from_ptr(data.name.as_ptr())}
+      .to_string_lossy()
+      .into_owned();
+    
+    let label = unsafe {std::ffi::CStr::from_ptr(data.label.as_ptr())}
+      .to_string_lossy()
+      .into_owned();
+
+    Ok(name, label, data.lines)
+  }
+
+  fn request (&self, consumer: &str, flags: u32, gpio: u32, default: u8) -> std::io::Result<GPIOHandle> {
+    let mut request = gpiohandle_request {
+      lineoffsets: [0; 64],
+      flags: 0,
+      default_values: [0; 64],
+      consumer_label: [0; 32],
+      lines: 0,
+      fd: 0
+    }
+
+    request.lineoffsets[0] = gpio;
+    request.flags = u32;
+    request.default_values[0] = default;
+    request.lines = 1;
+  }
 }
 
 impl GPIOHandle {
@@ -95,8 +135,8 @@ impl GPIOHandle {
   }
 }
 
-#[no_magle]
-pub extern fn construct_gpiochip () -> *mut GPIOChip {}
+// #[no_mangle]
+// pub extern fn construct_gpiochip () -> *mut GPIOChip {}
 
-#[no_mangle]
-pub extern fn destruct_gpiochip () {}
+// #[no_mangle]
+// pub extern fn destruct_gpiochip (*mut GPIOChip) {}
