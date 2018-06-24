@@ -73,5 +73,30 @@ struct GPIOHandle {
   file: std::fs::File,
   gpio: u32,
   consumer: String,
-  flags: uint32_t
+  flags: u32
 }
+
+impl GPIOChip {
+
+}
+
+impl GPIOHandle {
+  fn get (&self) -> std::io::Result<u8> {
+    let mut data = gpiohandle_data { values: [0; 64] };
+    get_line_values(self.file.as_raw_fd(), &mut data);
+    Ok(data.values[0])
+  }
+
+  fn set (&self, state: u8) -> std::io::Result<()> {
+    let mut data = gpiohandle_data { values: [0; 64] };
+    data.values[0] = value;
+    set_line_values(self.file.as_raw_fd(), &mut data);
+    Ok(())
+  }
+}
+
+#[no_magle]
+pub extern fn construct_gpiochip () -> *mut GPIOChip {}
+
+#[no_mangle]
+pub extern fn destruct_gpiochip () {}
