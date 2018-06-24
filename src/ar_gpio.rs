@@ -160,3 +160,9 @@ pub extern fn construct_gpioline () -> *mut GPIOHandle {}
 
 #[no_mangle]
 pub extern fn destruct_gpioline (*mut GPIOHandle) {}
+
+#[no_mangle]
+pub extern fn gpioline_get (*mut GPIOHandle) -> bool {}
+
+#[no_mangle]
+pub extern fn gpioline_set (*mut GPIOHandle, bool) {}
