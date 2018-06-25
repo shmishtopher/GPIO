@@ -40,19 +40,19 @@ pub struct gpiohandle_data {
 
 #[no_mangle]
 pub extern fn gpiochip_info_name (ptr: *mut gpiochip_info) -> [i8; 32] {
-  let _gpiochip_info = unsafe { &mut *ptr };
+  let _gpiochip_info = unsafe { *ptr };
   _gpiochip_info.name
 }
 
 #[no_mangle]
 pub extern fn gpiochip_info_label (ptr: *mut gpiochip_info) -> [i8; 32] {
-  let _gpiochip_info = unsafe { &mut *ptr };
+  let _gpiochip_info = unsafe { *ptr };
   _gpiochip_info.label
 }
 
 #[no_mangle]
 pub extern fn gpiochip_info_lines (ptr: *mut gpiochip_info) -> u32 {
-  let _gpiochip_info = unsafe { &mut *ptr };
+  let _gpiochip_info = unsafe { *ptr };
   _gpiochip_info.lines
 }
 
@@ -60,12 +60,24 @@ pub extern fn gpiochip_info_lines (ptr: *mut gpiochip_info) -> u32 {
 
 #[no_mangle]
 pub extern fn gpioline_info_line_offset (ptr: *mut gpioline_info) -> u32 {
-  let _gpioline_info = unsafe { &mut *ptr };
+  let _gpioline_info = unsafe { *ptr };
   _gpioline_info.line_offset
 }
 
 #[no_mangle]
 pub extern fn gpioline_info_flags (ptr: *mut gpioline_info) -> u32 {
-  let _gpioline_info = unsafe { &mut *ptr };
+  let _gpioline_info = unsafe { *ptr };
   _gpiochip_info.flags
+}
+
+#[no_mangle]
+pub extern fn gpioline_info_name (ptr: *mut gpioline_info) -> [i8; 32] {
+  let _gpioline_info = unsafe { *ptr };
+  _gpioline_info.name
+}
+
+#[no_mangle]
+pub extern fn gpioline_info_consumer (ptr: *mut gpioline_info) -> [i8; 32] {
+  let _gpioline_info = unsafe { *ptr };
+  _gpioline_info.consumer
 }
