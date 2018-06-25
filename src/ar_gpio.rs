@@ -56,8 +56,6 @@ pub extern fn gpiochip_info (s: *mut i8) -> *mut gpiochip_info {
     label: [0; 32],
     lines: 0
   };
-
-  get_chipinfo(fs, &mut info);
 }
 
 #[no_mangle]
