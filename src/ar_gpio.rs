@@ -6,6 +6,9 @@
  * of this source tree.
  */
 
+#[macro_use]
+extern crate nix;
+
 #[repr(C)]
 pub struct gpiochip_info {
   pub name: [i8; 32],
@@ -43,7 +46,7 @@ pub extern fn gpiochip (s: *mut i8) -> *mut gpiochip_info {
   let c_str = unsafe { std::ffi::CStr::from_ptr(s) };
   let r_str = c_str.to_str().unwrap();
 
-  let info = gpiochip_info {
+  let mut info = gpiochip_info {
     name: [0; 32],
     label: [0; 32],
     lines: 0
