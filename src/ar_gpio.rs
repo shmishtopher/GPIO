@@ -39,6 +39,18 @@ pub struct gpiohandle_data {
 
 
 #[no_mangle]
+pub extern fn gpiochip (s: *mut i8) -> *mut gpiochip_info {
+  let c_str = unsafe { std::ffi::CStr::from_ptr(s) };
+  let r_str = c_str.to_str().unwrap();
+
+  let info = gpiochip_info {
+    name: [0; 32],
+    label: [0; 32],
+    lines: 0
+  };
+}
+
+#[no_mangle]
 pub extern fn gpiochip_info_name (ptr: *mut gpiochip_info) -> [i8; 32] {
   let _gpiochip_info = unsafe { *ptr };
   _gpiochip_info.name
