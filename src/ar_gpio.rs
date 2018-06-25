@@ -8,6 +8,7 @@
 
 #[macro_use]
 extern crate nix;
+extern crate libc;
 
 #[repr(C)]
 pub struct gpiochip_info {
