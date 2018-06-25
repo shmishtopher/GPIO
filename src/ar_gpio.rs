@@ -40,10 +40,14 @@ pub struct gpiohandle_data {
   pub values: [u8; 64]
 }
 
-
+ioctl_read!(get_chipinfo, 0xB4, 0x01, gpiochip_info);
+ioctl_readwrite!(get_lineinfo, 0xB4, 0x02, gpioline_info);
+ioctl_readwrite!(get_linehandle, 0xB4, 0x03, gpiohandle_request);
+ioctl_readwrite!(get_line_values, 0xB4, 0x08, gpiohandle_data);
+ioctl_readwrite!(set_line_values, 0xB4, 0x09, gpiohandle_data);
 
 #[no_mangle]
-pub extern fn gpiochip (s: *mut i8) -> *mut gpiochip_info {
+pub extern fn gpiochip_info (s: *mut i8) -> *mut gpiochip_info {
   let c_str = unsafe { std::ffi::CStr::from_ptr(s) };
   let r_str = c_str.to_str().unwrap();
 
@@ -52,6 +56,8 @@ pub extern fn gpiochip (s: *mut i8) -> *mut gpiochip_info {
     label: [0; 32],
     lines: 0
   };
+
+  get_chipinfo(fs, &mut info);
 }
 
 #[no_mangle]
