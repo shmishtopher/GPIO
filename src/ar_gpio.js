@@ -76,6 +76,7 @@ class GPIOChip {
   }
 }
 
+
 class GPIOLine {
   constructor (fd) {
     this.fd = fd
