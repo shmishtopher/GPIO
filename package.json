@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "GPIO Pin control in JS using the gpiochip character device.",
   "main": "dist/ar_gpio.js",
-  "os": ["linux"],
   "scripts": {
     "clean": "rm -R target"
   },
