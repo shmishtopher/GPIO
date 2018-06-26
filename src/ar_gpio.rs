@@ -127,3 +127,37 @@ pub extern fn gpioline_consumer (ptr: *mut gpioline_info) -> [u8; 32] {
 pub extern fn gpioline_destroy (ptr: *mut gpioline_info) {
   let _gpioline: Box<gpioline_info> = unsafe { std::mem::transmute(ptr) };
 }
+
+
+#[no_mangle]
+pub extern fn gpiohandle_request (fd: i32, line: u32, flags: u32) -> i32 {
+  let mut request = gpiohandle_request {
+    lineoffsets: [0; 64],
+    flags: 0,
+    default_values: [0; 64],
+    consumer_label: [0; 32],
+    lines: 0,
+    fd: 0
+  };
+
+  request.lineoffsets[0] = line;
+  request.flags = flags;
+  request.lines = 1;
+
+  unsafe { get_line_handle(fd, &mut request); }
+  request.fd
+}
+
+#[no_mangle]
+pub extern fn gpioline_set (fd: i32, value: u8) {
+  let mut data = gpiohandle_data { values: [0; 64] };
+  data.values[0] = value;
+  unsafe { set_line_values(fd, &mut data); }
+}
+
+#[no_mangle]
+pub extern fn gpioline_get (fd: i32) -> u8 {
+  let mut data = gpiohandle_data { values: [0; 64] };
+  unsafe { get_line_values(fd, &mut data); }
+  data.values[0]
+}
