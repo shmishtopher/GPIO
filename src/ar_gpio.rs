@@ -46,6 +46,7 @@ ioctl_readwrite!(get_line_values, 0xB4, 0x08, gpiohandle_data);
 ioctl_readwrite!(set_line_values, 0xB4, 0x09, gpiohandle_data);
 
 
+#[no_mangle]
 pub extern fn gpiochip_create (fd: i32) -> *mut gpiochip_info {
   let mut info = gpiochip_info {
     name: [0; 32],
@@ -59,26 +60,31 @@ pub extern fn gpiochip_create (fd: i32) -> *mut gpiochip_info {
   }
 }
 
+#[no_mangle]
 pub extern fn gpiochip_name (ptr: *mut gpiochip_info) -> [u8; 32] {
   let _gpiochip = unsafe { *ptr };
   _gpiochip.name
 }
 
+#[no_mangle]
 pub extern fn gpiochip_label (ptr: *mut gpiochip_info) -> [u8; 32] {
   let _gpiochip = unsafe { *ptr };
   _gpiochip.label
 }
 
+#[no_mangle]
 pub extern fn gpiochip_lines (ptr: *mut gpiochip_info) -> u32 {
   let _gpiochip = unsafe { *ptr };
   _gpiochip.lines
 }
 
+#[no_mangle]
 pub extern fn gpiochip_destroy (ptr: *mut gpiochip_info) {
   let _gpiochip: Box<gpiochip_info> = unsafe { std::mem::transmute(ptr) };
 }
 
 
+#[no_mangle]
 pub extern fn gpioline_create (fd: i32) -> *mut gpioline_info {
   let mut info = gpioline_info {
     line_offset: 0,
@@ -93,26 +99,31 @@ pub extern fn gpioline_create (fd: i32) -> *mut gpioline_info {
   }
 }
 
+#[no_mangle]
 pub extern fn gpioline_offset (ptr: *mut gpioline_info) -> u32 {
   let _gpioline = unsafe { *ptr };
   _gpioline.line_offset
 }
 
+#[no_mangle]
 pub extern fn gpioline_flags (ptr: *mut gpioline_info) -> u32 {
   let _gpioline = unsafe { *ptr };
   _gpioline.flags
 }
 
+#[no_mangle]
 pub extern fn gpioline_name (ptr: *mut gpioline_info) -> [u8; 32] {
   let _gpioline = unsafe { *ptr };
   _gpioline.name
 }
 
+#[no_mangle]
 pub extern fn gpioline_consumer (ptr: *mut gpioline_info) -> [u8; 32] {
   let _gpioline = unsafe { *ptr };
   _gpioline.consumer
 }
 
+#[no_mangle]
 pub extern fn gpioline_destroy (ptr: *mut gpioline_info) {
   let _gpioline: Box<gpioline_info> = unsafe { std::mem::transmute(ptr) };
 }
