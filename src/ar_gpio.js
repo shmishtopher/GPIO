@@ -7,6 +7,7 @@
  */
 
 const { Library } = require('fastcall')
+const { openSync } = require('fs')
 
 const ffi = new Library(`${__dirname}/ar_gpio.so`)
   .function('pointer gpiochip_create (int32)')
@@ -21,6 +22,14 @@ const ffi = new Library(`${__dirname}/ar_gpio.so`)
   .function('string gpioline_name (pointer)')
   .function('string gpioline_consumer (pointer)')
   .function('void gpioline_destroy (pointer)')
+
+  .function('int32 gpiohandle_request (int32, uint32, uint32)')
+  .function('void gpioline_set (int32, uint8)')
+  .function('uint8 gpioline_get (int32)')
+
+
+const HIGH = Symbol.for('@Shmish/GPIO_HIGH')
+const LOW = Symbol.for('@Shmish/GPIO_LOW')
 
 
 class GPIOChipInfo {
@@ -52,5 +61,47 @@ class GPIOLineInfo {
 }
 
 
+class GPIOChip {
+  constructor (int) {
+    this.fd = openSync(`/dev/gpiochip${int}`, 0o666)
+    this.info = new GPIOChipInfo(this.fd)
+  }
+
+  get name () { return this.info.name }
+  get label () { return this.info.label }
+  get lines () { return this.info.lines }
+
+  request (offset, flags) {
+    return new GPIOLine()
+  }
+}
+
+class GPIOLine {
+  constructor (fd) {
+    this.fd = fd
+    this.info = new GPIOLineInfo(this.fd)
+  }
+
+  get offset () { return this.info.offset }
+  get flags () { return this.info.flags }
+  get name () { return this.info.name }
+  get consumer () { return this.info.consumer }
+
+  ['get'] () {
+    const state = ffi.interface.gpioline_get(this.fd)
+    if (state === 1) return HIGH
+    if (state === 0) return LOW
+  }
+
+  ['set'] (state) {
+    if (state === HIGH || state === 1) ffi.interface.gpioline_set(this.fd, 1)
+    if (state === LOW || state === 0) ffi.interface.gpioline_set(this.fd, 0)
+  }
+}
+
+
 module.exports.GPIOChipInfo = GPIOChipInfo
 module.exports.GPIOLineInfo = GPIOLineInfo
+module.exports.GPIOChip = GPIOChip
+module.exports.HIGH = HIGH
+module.exports.LOW = LOW
