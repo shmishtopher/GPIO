@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/shmishtopher/AR_GPIO/issues"
   },
-  "homepage": "https://github.com/shmishtopher/AR_GPIO#readme"
+  "homepage": "https://github.com/shmishtopher/AR_GPIO#readme",
+  "dependencies": {
+    "fastcall": "^0.2.6"
+  }
 }
