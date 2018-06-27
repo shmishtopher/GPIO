@@ -61,15 +61,19 @@ pub extern fn gpiochip_create (fd: i32) -> *mut gpiochip_info {
 }
 
 #[no_mangle]
-pub extern fn gpiochip_name (ptr: *mut gpiochip_info) -> [u8; 32] {
-  let _gpiochip = unsafe { &mut *ptr };
-  _gpiochip.name
+pub extern fn gpiochip_name (ptr: *mut gpiochip_info) -> *mut [u8; 32] {
+  unsafe {
+    let _gpiochip = &mut *ptr;
+    std::mem::transmute(_gpiochip.name)
+  }
 }
 
 #[no_mangle]
-pub extern fn gpiochip_label (ptr: *mut gpiochip_info) -> [u8; 32] {
-  let _gpiochip = unsafe { &mut *ptr };
-  _gpiochip.label
+pub extern fn gpiochip_label (ptr: *mut gpiochip_info) -> *mut [u8; 32] {
+  unsafe {
+    let _gpiochip = &mut *prt;
+    std::mem::transmute(_gpiochip.label)
+  }
 }
 
 #[no_mangle]
@@ -112,15 +116,19 @@ pub extern fn gpioline_flags (ptr: *mut gpioline_info) -> u32 {
 }
 
 #[no_mangle]
-pub extern fn gpioline_name (ptr: *mut gpioline_info) -> [u8; 32] {
-  let _gpioline = unsafe { &mut *ptr };
-  _gpioline.name
+pub extern fn gpioline_name (ptr: *mut gpioline_info) -> *mut [u8; 32] {
+  unsafe {
+    let _gpioline = &mut *ptr;
+    std::mem::transmute(_gpioline.name)
+  }
 }
 
 #[no_mangle]
-pub extern fn gpioline_consumer (ptr: *mut gpioline_info) -> [u8; 32] {
-  let _gpioline = unsafe { &mut *ptr };
-  _gpioline.consumer
+pub extern fn gpioline_consumer (ptr: *mut gpioline_info) -> *mut [u8; 32] {
+  unsafe {
+    let _gpioline = &mut *ptr;
+    std::mem::transmute(_gpioline.consumer)
+  }
 }
 
 #[no_mangle]

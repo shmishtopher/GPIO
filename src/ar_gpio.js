@@ -6,7 +6,7 @@
  * of this source tree.
  */
 
-const { Library } = require('fastcall')
+const { Library, ref } = require('fastcall')
 const { openSync } = require('fs')
 
 const ffi = new Library(`${__dirname}/libar_gpio.so`)
@@ -36,8 +36,8 @@ class GPIOChipInfo {
   constructor (file) {
     const $ptr = ffi.interface.gpiochip_create(file)
 
-    this.name = ffi.interface.gpiochip_name($ptr)
-    this.label = ffi.interface.gpiochip_label($ptr)
+    this.name = ref.readCString(ffi.interface.gpiochip_name($ptr))
+    this.label = ref.readCString(ffi.interface.gpiochip_label($ptr))
     this.lines = ffi.interface.gpiochip_lines($ptr)
 
     ffi.interface.gpiochip_destroy($ptr)
@@ -52,8 +52,8 @@ class GPIOLineInfo {
 
     this.offset = ffi.interface.gpioline_offset($ptr)
     this.flags = ffi.interface.gpioline_flags($ptr)
-    this.name = ffi.interface.gpioline_name($ptr)
-    this.consumer = ffi.interface.gpioline_consumer($ptr)
+    this.name = ref.readCString(ffi.interface.gpioline_name($ptr))
+    this.consumer = ref.readCString(ffi.interface.gpioline_consumer($ptr))
 
     ffi.interface.gpioline_destroy($ptr)
     Object.freeze(this)
