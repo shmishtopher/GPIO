@@ -9,7 +9,7 @@
 const { Library, ref } = require('fastcall')
 const { openSync } = require('fs')
 
-const ffi = new Library(`${__dirname}/libar_gpio.so`)
+const ffi = new Library(`${__dirname}/ar_gpio.so`)
   .function('pointer gpiochip_create (int32)')
   .function('uint8* gpiochip_name (pointer)')
   .function('uint8* gpiochip_label (pointer)')
