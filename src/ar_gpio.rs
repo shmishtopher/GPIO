@@ -64,7 +64,7 @@ pub extern fn gpiochip_create (fd: i32) -> *mut gpiochip_info {
 pub extern fn gpiochip_name (ptr: *mut gpiochip_info) -> *mut [u8; 32] {
   unsafe {
     let _gpiochip = &mut *ptr;
-    std::mem::transmute(_gpiochip.name)
+    std::mem::transmute(Box::new(_gpiochip.name))
   }
 }
 
@@ -72,7 +72,7 @@ pub extern fn gpiochip_name (ptr: *mut gpiochip_info) -> *mut [u8; 32] {
 pub extern fn gpiochip_label (ptr: *mut gpiochip_info) -> *mut [u8; 32] {
   unsafe {
     let _gpiochip = &mut *ptr;
-    std::mem::transmute(_gpiochip.label)
+    std::mem::transmute(Box::new(_gpiochip.label))
   }
 }
 
@@ -119,7 +119,7 @@ pub extern fn gpioline_flags (ptr: *mut gpioline_info) -> u32 {
 pub extern fn gpioline_name (ptr: *mut gpioline_info) -> *mut [u8; 32] {
   unsafe {
     let _gpioline = &mut *ptr;
-    std::mem::transmute(_gpioline.name)
+    std::mem::transmute(Box::new(_gpioline.name))
   }
 }
 
@@ -127,7 +127,7 @@ pub extern fn gpioline_name (ptr: *mut gpioline_info) -> *mut [u8; 32] {
 pub extern fn gpioline_consumer (ptr: *mut gpioline_info) -> *mut [u8; 32] {
   unsafe {
     let _gpioline = &mut *ptr;
-    std::mem::transmute(_gpioline.consumer)
+    std::mem::transmute(Box::new(_gpioline.consumer))
   }
 }
 
