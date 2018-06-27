@@ -5,10 +5,7 @@
   "main": "dist/ar_gpio.js",
   "scripts": {
     "clean": "rm -R target",
-    "build": "cargo build --release && " +
-             "rm dist/ar_gpio.js && rm dist/ar_gpio.so && "
-             "mv target/release/libar_gpio.so dist/ar_gpio.so && " +
-             "cp src/ar_gpio.js dist"
+    "build": "cargo build --release && rm dist/ar_gpio.js && rm dist/ar_gpio.so && mv target/release/libar_gpio.so dist/ar_gpio.so && cp src/ar_gpio.js dist"
   },
   "repository": {
     "type": "git",
