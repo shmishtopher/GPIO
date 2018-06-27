@@ -150,6 +150,8 @@ pub extern fn gpiohandle_request (fd: i32, line: u32, flags: u32) -> i32 {
 
   request.lineoffsets[0] = line;
   request.flags = flags;
+  request.defualt_values[0] = 0;
+  request.consumer_label[0] = 64;
   request.lines = 1;
 
   unsafe { get_line_handle(fd, &mut request); }
