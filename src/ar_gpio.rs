@@ -89,9 +89,9 @@ pub extern fn gpiochip_destroy (ptr: *mut gpiochip_info) {
 
 
 #[no_mangle]
-pub extern fn gpioline_create (fd: i32) -> *mut gpioline_info {
+pub extern fn gpioline_create (fd: i32, line: u32) -> *mut gpioline_info {
   let mut info = gpioline_info {
-    line_offset: 0,
+    line_offset: line,
     flags: 0,
     name: [0; 32],
     consumer: [0; 32]
