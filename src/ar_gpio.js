@@ -9,18 +9,18 @@
 const { Library } = require('fastcall')
 const { openSync } = require('fs')
 
-const ffi = new Library(`${__dirname}/ar_gpio.so`)
+const ffi = new Library(`${__dirname}/libar_gpio.so`)
   .function('pointer gpiochip_create (int32)')
-  .function('string gpiochip_name (pointer)')
-  .function('string gpiochip_label (pointer)')
+  .function('uint8* gpiochip_name (pointer)')
+  .function('uint8* gpiochip_label (pointer)')
   .function('uint32 gpiochip_lines (pointer)')
   .function('void gpiochip_destroy (pointer)')
 
   .function('pointer gpioline_create (int32)')
   .function('uint32 gpioline_offset (pointer)')
   .function('uint32 gpioline_flags (pointer)')
-  .function('string gpioline_name (pointer)')
-  .function('string gpioline_consumer (pointer)')
+  .function('uint8* gpioline_name (pointer)')
+  .function('uint8* gpioline_consumer (pointer)')
   .function('void gpioline_destroy (pointer)')
 
   .function('int32 gpiohandle_request (int32, uint32, uint32)')
