@@ -110,3 +110,9 @@ module.exports.GPIOLineInfo = GPIOLineInfo
 module.exports.GPIOChip = GPIOChip
 module.exports.HIGH = HIGH
 module.exports.LOW = LOW
+
+module.exports.INPUT =       (1 << 0)
+module.exports.OUTPUT =      (1 << 1)
+module.exports.ACTIVE_LOW =  (1 << 2)
+module.exports.OPEN_DRAIN =  (1 << 3)
+module.exports.OPEN_SOURCE = (1 << 4)
