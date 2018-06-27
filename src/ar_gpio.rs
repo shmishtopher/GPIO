@@ -71,7 +71,7 @@ pub extern fn gpiochip_name (ptr: *mut gpiochip_info) -> *mut [u8; 32] {
 #[no_mangle]
 pub extern fn gpiochip_label (ptr: *mut gpiochip_info) -> *mut [u8; 32] {
   unsafe {
-    let _gpiochip = &mut *prt;
+    let _gpiochip = &mut *ptr;
     std::mem::transmute(_gpiochip.label)
   }
 }
