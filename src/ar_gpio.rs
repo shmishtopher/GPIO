@@ -41,7 +41,7 @@ pub struct gpiohandle_data {
 
 ioctl_read!(get_chip_info, 0xB4, 0x01, gpiochip_info);
 ioctl_readwrite!(get_line_info, 0xB4, 0x02, gpioline_info);
-ioctl_readwrite!(get_line_handle, 0xB4, 0x02, gpiohandle_request);
+ioctl_readwrite!(get_line_handle, 0xB4, 0x03, gpiohandle_request);
 ioctl_readwrite!(get_line_values, 0xB4, 0x08, gpiohandle_data);
 ioctl_readwrite!(set_line_values, 0xB4, 0x09, gpiohandle_data);
 
