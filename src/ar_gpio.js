@@ -71,7 +71,7 @@ class GPIOChip {
   get label () { return this.info.label }
   get lines () { return this.info.lines }
 
-  request (line, flags) {
+  line (line, flags) {
     return new GPIOLine(
       ffi.interface.gpiohandle_request(this.fd, line, flags),
       this.fd,
