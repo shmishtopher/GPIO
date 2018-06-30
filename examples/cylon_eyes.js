@@ -1,22 +1,14 @@
-# AR_GPIO
-:gear: GPIO Pin control in JS using the gpiochip character device
+/**
+ * Copyright (C) 2018, Shmish <shmish90@gmail.com>
+ *
+ * This code is licensed under the MIT licence
+ * found in the LICENCE file in the root directory
+ * of this source tree.
+ * 
+ * This code demonstrates the classic "Cylon Eye"
+ * effect.
+ */
 
-[WIP]
-
-
-```JavaScript
-const { GPIOChip, HIGH, LOW, OUTPUT } = require('ar_gpio')
-
-const chip = new GPIOChip(0)
-const line1 = chip.request(15, OUTPUT)
-const line2 = chip.request(17, OUTPUT)
-
-line1.set(HIGH)
-line2.set(LOW)
-```
-
-```JavaScript
-// Cylon Eyes
 
 const { GPIOChip, OUTPUT, HIGH, LOW } = require('ar_gpio')
 
@@ -50,4 +42,3 @@ async function main () {
 }
 
 main()
-```
