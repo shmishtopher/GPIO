@@ -4,6 +4,11 @@
 # Install
 AR_GPIO is build on [`fastcall`](https://www.npmjs.com/package/fastcall), which uses cMake instead of node-gyp.  Install cMake before installing AR_GPIO
 ```
+# Install C++ Toolchain
+sudo apt-get update
+sudo apt-get install build-essential
+```
+```
 sudo apt-get install cmake  # AR_GPIO depends on cmake
 ```
 ```
