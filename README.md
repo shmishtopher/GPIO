@@ -2,7 +2,7 @@
 :gear: GPIO Pin control in JS using the gpiochip character device
 
 1. [`Install`](#install)
-2. [`Examples`](#examples)
+2. [`Examples`](#example)
 3. [`Building`](#building)
 4. [`API`](#api)
 
@@ -59,6 +59,7 @@ async function main () {
 
 main()
 ```
+
 # Building
 Building requires the Rust compiler.  The easist way to get RustC and Cargo is with `Rustup`
 ```
@@ -67,4 +68,56 @@ curl https://sh.rustup.rs -sSf | sh -s -- --help
 With the Rust compiler installed you can build with the NPM script.
 ```
 npm run build
+```
+
+# API
+Initilize a new GPIOChip:
+```
+/**
+ * @param {Number} chip;  The gpio chip to use.  
+ * If your gpio chip is at /dev/gpiochip0 then 
+ * the `chip` param is `0`
+ */
+
+const myChip = new GPIOChip(0)
+```
+
+Export a GPIO line:
+```
+/**
+ * @param {Number} line;  The BCM pin to export
+ * @param {Number} flags;  The flags you need, ORd together
+ */
+
+const inputLine = myChip.line(17, INPUT | ACTIVE_LOW)
+const outputLine = myChip.line(21, OUTPUT)
+```
+
+Read a GPIO line:
+```
+/**
+ * The line must be exported as an INPUT before using `.get()`
+ * @returns {HIGH | LOW} state;
+ */
+
+if (inputLine.get() === HIGH) {
+  console.log('Line 17 is HIGH')
+}
+```
+
+Write to a GPIO line:
+```
+/**
+ * The line must be exported as an OUTPUT before using `.set()`
+ * @param {HIGH | LOW} state;  The state to set.
+ */
+
+outputLine.set(HIGH)
+// Or...
+outputLine.set(1)
+
+
+outputLine.set(LOW)
+// Or...
+outputLine.set(0)
 ```
