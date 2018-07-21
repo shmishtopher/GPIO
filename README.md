@@ -6,6 +6,16 @@
 3. [`Building`](#building)
 4. [`API`](#api)
 
+
+## Platform Support
+| Confirmed Working   | Should Work*   | Confirmed not Working |
+|---------------------|----------------|-----------------------|
+| Raspberry Pi Zero W | Raspberry Pi 2 |                       |
+| Raspberry Pi Zero   | Raspberry Pi 3 |                       |
+| C.H.I.P             | Beagle Bone    |                       |
+
+\*Untested
+
 # Install
 AR_GPIO is build on [`fastcall`](https://www.npmjs.com/package/fastcall), which uses cMake instead of node-gyp.  Install cMake before installing AR_GPIO
 ```
