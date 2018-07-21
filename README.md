@@ -54,3 +54,12 @@ async function main () {
 
 main()
 ```
+# Building
+Building requires the Rust compiler.  The easist way to get RustC and Cargo is with `Rustup`
+```
+curl https://sh.rustup.rs -sSf | sh -s -- --help
+```
+With the Rust compiler installed you can build with the NPM script.
+```
+npm run build
+```
