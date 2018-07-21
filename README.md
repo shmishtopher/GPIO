@@ -72,7 +72,7 @@ npm run build
 
 # API
 Initilize a new GPIOChip:
-```
+```JavaScript
 /**
  * @param {Number} chip;  The gpio chip to use.  
  * If your gpio chip is at /dev/gpiochip0 then 
@@ -83,7 +83,7 @@ const myChip = new GPIOChip(0)
 ```
 
 Export a GPIO line:
-```
+```JavaScript
 /**
  * @param {Number} line;  The BCM pin to export
  * @param {Number} flags;  The flags you need, ORd together
@@ -94,7 +94,7 @@ const outputLine = myChip.line(21, OUTPUT)
 ```
 
 Read a GPIO line:
-```
+```JavaScript
 /**
  * The line must be exported as an INPUT before using `.get()`
  * @returns {HIGH | LOW} state;
@@ -106,7 +106,7 @@ if (inputLine.get() === HIGH) {
 ```
 
 Write to a GPIO line:
-```
+```JavaScript
 /**
  * The line must be exported as an OUTPUT before using `.set()`
  * @param {HIGH | LOW} state;  The state to set.
