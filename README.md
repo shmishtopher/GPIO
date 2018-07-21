@@ -12,6 +12,7 @@ npm i --save https://github.com/shmishtopher/GPIO  # Node dependency
 
 
 # Example
+![cylon eyes](examples/cyloneyes.png)
 ```JavaScript
 // Cylon Eyes
 
