@@ -1,10 +1,10 @@
 # GPIO
 :gear: GPIO Pin control in JS using the gpiochip character device
 
-1. [`Install`](#Install)
-2. [`Examples`](#Examples)
-3. [`Building`](#Building)
-4. [`API`](#API)
+1. [`Install`](#install)
+2. [`Examples`](#examples)
+3. [`Building`](#building)
+4. [`API`](#api)
 
 # Install
 AR_GPIO is build on [`fastcall`](https://www.npmjs.com/package/fastcall), which uses cMake instead of node-gyp.  Install cMake before installing AR_GPIO
