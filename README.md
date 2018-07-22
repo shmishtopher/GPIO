@@ -1,7 +1,7 @@
 # AR_GPIO
 :rocket: GPIO Pin control in JS using the gpiochip character device
 
-AR_GPIO aims to provide the portablity of the sysfs GPIO interface while preserving the speed of direct regiter access.  AR_GPIO is fast enough to build soft-PWMs.
+AR_GPIO aims to provide the portablity of the sysfs GPIO interface while preserving the speed of direct regiter access (achieved by using the gpiochip character device in `/dev/gpiochipN`).  The libray is very mininal, providing only the core GPIO functionality and is fast enough to work with soft-PWMs.
 
 1. [`Install`](#install)
 2. [`Examples`](#example)
